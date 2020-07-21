@@ -8,14 +8,29 @@ public class Deck {
   private final List<Card> cards = new ArrayList<>();
 
   public Deck() {
-    var cardValues = List.of("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
-    var suits = List.of("♠", "♦", "♥", "♣");
-    for (String suit : suits) {
-      for (String cardValue : cardValues) {
-        cards.add(new Card(suit, cardValue));
-      }
-    }
+    createDeck();
+    shuffleDeck();
+  }
+
+  private void shuffleDeck() {
     Collections.shuffle(cards);
+  }
+
+  private void createDeck() {
+    var cardValues = List.of("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K");
+    for (Suit suit : Suit.allSuits()) {
+      addSuitToDeck(cardValues, suit);
+    }
+  }
+
+  private void addSuitToDeck(List<String> cardValues, Suit suit) {
+    for (String cardValue : cardValues) {
+      addNewCard(cardValue, suit);
+    }
+  }
+
+  private void addNewCard(String cardValue, Suit suit) {
+    cards.add(new Card(suit, cardValue));
   }
 
   public int size() {

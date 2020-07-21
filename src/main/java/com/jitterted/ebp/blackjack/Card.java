@@ -5,22 +5,45 @@ import org.fusesource.jansi.Ansi;
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class Card {
-  private final String suit;
+  private final Suit suit;
   private final String rank;
 
-  public Card(String suit, String rank) {
+  public Card(Suit suit, String rank) {
     this.suit = suit;
     this.rank = rank;
   }
 
+  // how to refactor?
+  // 1. Refactor to an Enum
+  // 2. Switch case
+  // 3. Map
+  // 4. Rank?
+
+  // information known at compile-time or at run-time
+
+  // YAGNI
+
+  // discussing & reasoning --> code it
+
   public int rankValue() {
-    if ("JQK".contains(rank)) {
+    if (isFaceCard()) {
       return 10;
-    } else if (rank.equals("A")) {
+    } else if (isAce()) {
       return 1;
-    } else {
-      return Integer.parseInt(rank);
     }
+    return numericValue();
+  }
+
+  private int numericValue() {
+    return Integer.parseInt(rank);
+  }
+
+  private boolean isAce() {
+    return rank.equals("A");
+  }
+
+  private boolean isFaceCard() {
+    return "JQK".contains(rank);
   }
 
   public String display() {
@@ -33,7 +56,7 @@ public class Card {
     lines[5] = String.format("│       %s%s│", rank.equals("10") ? "" : " ", rank);
     lines[6] = "└─────────┘";
 
-    Ansi.Color cardColor = "♥♦".contains(suit) ? Ansi.Color.RED : Ansi.Color.BLACK;
+    Ansi.Color cardColor = suit.color();
     return ansi()
         .fg(cardColor).toString()
         + String.join(ansi().cursorDown(1)
