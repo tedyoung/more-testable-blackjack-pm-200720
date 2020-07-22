@@ -24,11 +24,27 @@ public class HandValueAceTest {
   }
 
   @Test
-  public void handWithOneAceAndOtherCardsEqualTo11IsValuedAt1() throws Exception {
+  public void handWithOneAceAndOtherCardsEqualTo11IsValuedAs1() throws Exception {
     Hand hand = createHandOfCardsWithArbitrarySuit("A", "8", "3");
 
     assertThat(hand.value())
         .isEqualTo(1 + 8 + 3);
+  }
+
+  @Test
+  public void handWithOneAceAndOtherCardsEquals10AceIsValuedAs11() throws Exception {
+    Hand hand = createHandOfCardsWithArbitrarySuit("A", "10");
+
+    assertThat(hand.value())
+        .isEqualTo(11 + 10);
+  }
+
+  @Test
+  public void handWithOneAceAndOtherCardsEquals9AceIsValuedAs11() throws Exception {
+    Hand hand = createHandOfCardsWithArbitrarySuit("A", "9");
+
+    assertThat(hand.value())
+        .isEqualTo(11 + 9);
   }
 
   private Hand createHandOfCardsWithArbitrarySuit(String... ranks) {
