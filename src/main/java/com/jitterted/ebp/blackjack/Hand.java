@@ -13,7 +13,7 @@ public class Hand {
   }
 
   public Hand(List<Card> listOfCards) {
-    hand.addAll(listOfCards);
+    listOfCards.forEach(this::addCard);
   }
 
   public boolean isHandBusted() {
@@ -21,7 +21,11 @@ public class Hand {
   }
 
   public void drawCardFrom(Deck deck) {
-    hand.add(deck.draw());
+    addCard(deck.draw());
+  }
+
+  private void addCard(Card card) {
+    hand.add(card);
   }
 
   public void displayHand() {
