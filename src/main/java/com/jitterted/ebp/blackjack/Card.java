@@ -6,54 +6,25 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class Card {
   private final Suit suit;
-  private final String rank;
+  private final Rank rank;
 
-  public Card(Suit suit, String rank) {
+  public Card(Suit suit, Rank rank) {
     this.suit = suit;
     this.rank = rank;
   }
 
-  // how to refactor?
-  // 1. Refactor to an Enum
-  // 2. Switch case
-  // 3. Map
-  // 4. Rank?
-
-  // information known at compile-time or at run-time
-
-  // YAGNI
-
-  // discussing & reasoning --> code it
-
   public int rankValue() {
-    if (isFaceCard()) {
-      return 10;
-    } else if (isAce()) {
-      return 1;
-    }
-    return numericValue();
-  }
-
-  private int numericValue() {
-    return Integer.parseInt(rank);
-  }
-
-  private boolean isAce() {
-    return rank.equals("A");
-  }
-
-  private boolean isFaceCard() {
-    return "JQK".contains(rank);
+    return rank.rankValue();
   }
 
   public String display() {
     String[] lines = new String[7];
     lines[0] = "┌─────────┐";
-    lines[1] = String.format("│%s%s       │", rank, rank.equals("10") ? "" : " ");
+    lines[1] = String.format("│%s%s       │", rank.display(), rank.display().equals("10") ? "" : " ");
     lines[2] = "│         │";
-    lines[3] = String.format("│    %s    │", suit);
+    lines[3] = String.format("│    %s    │", suit.display());
     lines[4] = "│         │";
-    lines[5] = String.format("│       %s%s│", rank.equals("10") ? "" : " ", rank);
+    lines[5] = String.format("│       %s%s│", rank.display().equals("10") ? "" : " ", rank.display());
     lines[6] = "└─────────┘";
 
     Ansi.Color cardColor = suit.color();

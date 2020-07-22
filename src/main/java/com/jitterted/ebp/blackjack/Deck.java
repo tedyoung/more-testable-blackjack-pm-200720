@@ -25,12 +25,12 @@ public class Deck {
 
   private void addSuitToDeck(List<String> cardValues, Suit suit) {
     for (String cardValue : cardValues) {
-      addNewCard(cardValue, suit);
+      addNewCard(suit, Rank.of(cardValue));
     }
   }
 
-  private void addNewCard(String cardValue, Suit suit) {
-    cards.add(new Card(suit, cardValue));
+  private void addNewCard(Suit suit, Rank rank) {
+    cards.add(new Card(suit, rank));
   }
 
   public int size() {

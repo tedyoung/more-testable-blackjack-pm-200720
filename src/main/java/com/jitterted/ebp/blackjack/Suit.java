@@ -54,4 +54,8 @@ public class Suit {
         "suit='" + suit + '\'' +
         '}';
   }
+
+  public String display() {
+    return suit;
+  }
 }
