@@ -64,4 +64,12 @@ public class Hand {
   public int hashCode() {
     return value();
   }
+
+  boolean beats(Hand hand) {
+    return value() > hand.value();
+  }
+
+  boolean pushesWith(Hand hand) {
+    return value() == hand.value();
+  }
 }
