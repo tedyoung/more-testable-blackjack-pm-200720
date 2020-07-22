@@ -1,7 +1,7 @@
 package com.jitterted.ebp.blackjack.domain;
 
 import com.jitterted.ebp.blackjack.Card;
-import com.jitterted.ebp.blackjack.Game;
+import com.jitterted.ebp.blackjack.Hand;
 import com.jitterted.ebp.blackjack.Rank;
 import com.jitterted.ebp.blackjack.Suit;
 import org.junit.jupiter.api.Test;
@@ -17,28 +17,26 @@ public class HandValueAceTest {
 
   @Test
   public void handWithOneAceTwoCardsIsValuedAt11() throws Exception {
-    Game game = new Game();
-    var hand = createListOfCardsWithArbitrarySuit("A", "5");
+    Hand hand = createHandOfCardsWithArbitrarySuit("A", "5");
 
-    assertThat(game.handValueOf(hand))
+    assertThat(hand.value())
         .isEqualTo(11 + 5);
   }
 
   @Test
   public void handWithOneAceAndOtherCardsEqualTo11IsValuedAt1() throws Exception {
-    Game game = new Game();
-    var hand = createListOfCardsWithArbitrarySuit("A", "8", "3");
+    Hand hand = createHandOfCardsWithArbitrarySuit("A", "8", "3");
 
-    assertThat(game.handValueOf(hand))
+    assertThat(hand.value())
         .isEqualTo(1 + 8 + 3);
   }
 
-  private List<Card> createListOfCardsWithArbitrarySuit(String... ranks) {
+  private Hand createHandOfCardsWithArbitrarySuit(String... ranks) {
     List<Card> cards = new ArrayList<>();
     for (String rank : ranks) {
       cards.add(new Card(DONT_CARE_SUIT, Rank.of(rank)));
     }
-    return cards;
+    return new Hand(cards);
   }
 
 }
