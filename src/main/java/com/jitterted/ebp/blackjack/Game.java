@@ -12,6 +12,8 @@ public class Game {
 
   private final Hand dealerHand;
   private final Hand playerHand;
+  private int playerBalance;
+  private int playerBet;
 
   public static void main(String[] args) {
 
@@ -43,6 +45,7 @@ public class Game {
   }
 
   public Game() {
+    playerBalance = 100;
     deck = new Deck();
     playerHand = new Hand(deck);
     dealerHand = new Hand(deck);
@@ -161,5 +164,18 @@ public class Game {
     System.out.println("Player has: ");
     playerHand.displayHand();
     System.out.println(" (" + playerHand.value() + ")");
+  }
+
+  public int playerBalance() {
+    return playerBalance;
+  }
+
+  public void playerBets(int betAmount) {
+    playerBalance -= betAmount;
+    playerBet = betAmount;
+  }
+
+  public void playerWins() {
+    playerBalance += playerBet * 2;
   }
 }
