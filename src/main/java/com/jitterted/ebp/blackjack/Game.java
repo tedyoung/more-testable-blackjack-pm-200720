@@ -175,7 +175,24 @@ public class Game {
     playerBet = betAmount;
   }
 
-  public void playerWins() {
-    playerBalance += playerBet * 2;
+  public void playerLoses() {
+    playerWinsWithPayoff(0);
   }
+
+  public void playerWins() {
+    playerWinsWithPayoff(2);
+  }
+
+  public void playerWinsBlackjack() {
+    playerWinsWithPayoff(2.5);
+  }
+
+  public void playerPushes() {
+    playerWinsWithPayoff(1);
+  }
+
+  private void playerWinsWithPayoff(double payoffMultiplier) {
+    playerBalance += playerBet * payoffMultiplier;
+  }
+
 }

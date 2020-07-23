@@ -35,4 +35,39 @@ public class BettingTest {
     assertThat(game.playerBalance())
         .isEqualTo(110);
   }
+
+  @Test
+  public void playerBets25AndLosesBalanceIs75() throws Exception {
+    Game game = new Game();
+    game.playerBets(25);
+
+    game.playerLoses();
+
+    assertThat(game.playerBalance())
+        .isEqualTo(75);
+  }
+
+  @Test
+  public void playerBets50AndGetsBlackjackBalanceIs175() throws Exception {
+    Game game = new Game();
+    game.playerBets(50);
+
+    game.playerWinsBlackjack();
+
+    assertThat(game.playerBalance())
+        .isEqualTo(50 + (int) (50 * 2.5));
+  }
+
+  @Test
+  public void playerBets35AndPushesResultsInSameAsStartingBalance() throws Exception {
+    Game game = new Game();
+    int initialBalance = game.playerBalance();
+    game.playerBets(35);
+
+    game.playerPushes();
+
+    assertThat(game.playerBalance())
+        .isEqualTo(initialBalance);
+  }
+
 }
