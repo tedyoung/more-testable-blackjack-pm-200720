@@ -1,12 +1,14 @@
 package com.jitterted.ebp.blackjack.domain;
 
 import com.jitterted.ebp.blackjack.Card;
+import com.jitterted.ebp.blackjack.Deck;
 import com.jitterted.ebp.blackjack.Hand;
 import com.jitterted.ebp.blackjack.Rank;
 import com.jitterted.ebp.blackjack.Suit;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -52,7 +54,25 @@ public class HandValueAceTest {
     for (String rank : ranks) {
       cards.add(new Card(DONT_CARE_SUIT, Rank.of(rank)));
     }
-    return new Hand(cards);
+    Deck deck = new StubDeck(cards);
+    Hand hand = new Hand(deck);
+    for (int i = 0; i < ranks.length; i++) {
+      hand.drawCardFromDeck();
+    }
+    return hand;
+  }
+
+  private static class StubDeck extends Deck {
+    private final Iterator<Card> cardIterator;
+
+    public StubDeck(List<Card> cards) {
+      this.cardIterator = cards.iterator();
+    }
+
+    @Override
+    public Card draw() {
+      return cardIterator.next();
+    }
   }
 
 }

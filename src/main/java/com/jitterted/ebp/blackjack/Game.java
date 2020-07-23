@@ -10,8 +10,8 @@ public class Game {
 
   private final Deck deck;
 
-  private final Hand dealerHand = new Hand();
-  private final Hand playerHand = new Hand();
+  private final Hand dealerHand;
+  private final Hand playerHand;
 
   public static void main(String[] args) {
 
@@ -44,6 +44,8 @@ public class Game {
 
   public Game() {
     deck = new Deck();
+    playerHand = new Hand(deck);
+    dealerHand = new Hand(deck);
   }
 
   public void initialDeal() {
@@ -56,8 +58,8 @@ public class Game {
   }
 
   private void dealCardToAll() {
-    playerHand.drawCardFrom(deck);
-    dealerHand.drawCardFrom(deck);
+    playerHand.drawCardFromDeck();
+    dealerHand.drawCardFromDeck();
   }
 
 
@@ -76,7 +78,7 @@ public class Game {
   private void dealerPlays(boolean playerBusted) {
     if (!playerBusted) {
       while (dealerHand.value() <= 16) {
-        dealerHand.drawCardFrom(deck);
+        dealerHand.drawCardFromDeck();
       }
     }
   }
@@ -90,7 +92,7 @@ public class Game {
         break;
       }
       if (playerChoice.startsWith("h")) {
-        playerHand.drawCardFrom(deck);
+        playerHand.drawCardFromDeck();
         playerBusted = playerHand.isHandBusted();
       } else {
         System.out.println("You need to [H]it or [S]tand");

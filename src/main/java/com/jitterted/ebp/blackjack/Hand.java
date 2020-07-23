@@ -8,19 +8,17 @@ import static org.fusesource.jansi.Ansi.ansi;
 
 public class Hand {
   private final List<Card> hand = new ArrayList<>();
+  private final Deck deck;
 
-  public Hand() {
-  }
-
-  public Hand(List<Card> listOfCards) {
-    listOfCards.forEach(this::addCard);
+  public Hand(Deck deck) {
+    this.deck = deck;
   }
 
   public boolean isHandBusted() {
     return value() > 21;
   }
 
-  public void drawCardFrom(Deck deck) {
+  public void drawCardFromDeck() {
     addCard(deck.draw());
   }
 
